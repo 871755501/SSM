@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--头部的声明，用来验证XML文档的正确性-->
+<mapper namespace="com.dao.SysLog">
+    <cache eviction="LRU" readOnly="true" size="1024" flushInterval="100000"></cache>
+    <select id="findAllList" resultType="pojo">
+        select * FROM t_ivrmt_newtransferconfig WHERE BIZ_NM=#{name} AND EXT1=#{ext1};
+    </select>
+</mapper>

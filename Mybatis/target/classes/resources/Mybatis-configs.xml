@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE configuration
+                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        <!--头部的声明，用来验证XML文档的正确性-->
+
+        <!--Mybatis核心配置-->
+<configuration>
+    <!--Mybatis读取properties配置文件-->
+    <properties resource="properties/jdbc.properties"></properties>
+    <settings>
+        <!--开启全局懒加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--关闭立即加载，其实不用配置，默认为false-->
+        <setting name="aggressiveLazyLoading" value="false"></setting>
+        <!--开启Mybatis的Sql执行相关信息打印-->
+        <setting name="logImpl" value="STDOUT_LOGGING"></setting>
+        <!--配置使全局的映射器（二级缓存）启用或禁止缓存-->
+        <setting name="cacheEnabled" value="true"></setting>
+    </settings>
+    <!--使用typeAliases(类型别名)配置别名，它只能配置domain中的别名-->
+    <typeAliases>
+        <typeAlias type="com.pojo.t_ivrmt_newtransferconfig" alias="pojo"></typeAlias>
+        <package name="com.dao"></package>
+    </typeAliases>
+
+<!--Mybatis配置环境，environments包含了事务管理和连接池的配置-->
+<environments default="development">
+    <environment id="development">
+        <!--事务作用域和控制方式事务管理器
+        配置事务管理方式：JDBC/MANAGED
+        JDBC：将事务交给JDBC管理（推荐）
+        MANAGED：自己管理事务
+        -->
+        <transactionManager type="JDBC"></transactionManager>
+        <!--使用Mybatis自带的连接池JDBC
+        配置数据源，即连接池方式:JNDI/POOLED/UNPOOLED
+        JNDI：已过时
+        POOLED：使用连接池（推荐）
+        UNPOOLED：不使用连接池
+        -->
+        <dataSource type="POOLED">
+                <property name="driver" value="${driver}"></property>
+                <property name="url" value="http://www.example.com"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+        </dataSource>
+    </environment>
+</environments>
+<!--Mappers元素包含了映射器
+加载Mapper配置文件(因mapper文件中配置了要执行的SQL语句)
+-->
+<mappers>
+    <!--包扫描使用注解形式@Select()-->
+    <!--<package name="com.dao"></package>-->
+    <mapper resource="Mapper/SysLogMapper.xml"/>
+    <mapper resource="Mapper/SysLog.xml"/>
+</mappers>
+</configuration>
